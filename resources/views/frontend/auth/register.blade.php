@@ -18,22 +18,22 @@
                     <form class="row" method="post" action="{{ route('signup.store') }}">
                         @csrf
                         <div class="col-sm-6">
-                            <x-front.inputbox labelName="First Name" required="required" name="first_name" />
+                            <x-front.inputbox labelName="First Name" required="required" name="first_name"  error='first_name'/>
                         </div>
                         <div class="col-sm-6">
-                            <x-front.inputbox labelName="Last Name" required="required" name="last_name"/>
+                            <x-front.inputbox labelName="Last Name" required="required" name="last_name" error='last_name'/>
                         </div>
                         <div class="col-sm-6">
-                            <x-front.inputbox labelName="Email" required="required" name="email" type="email" />
+                            <x-front.inputbox labelName="Email" required="required" name="email" type="email"  error='email'/>
                         </div>
                         <div class="col-sm-6">
-                            <x-front.inputbox labelName="Phone" optional="(Optional)" name="phone"  type="tel"/>
+                            <x-front.inputbox labelName="Phone" optional="(Optional)" name="phone"  type="tel" error='phone'/>
                         </div>
                         <div class="col-sm-6">
-                            <x-front.inputbox labelName="Password" required="required" name="password" type="password"/>
+                            <x-front.inputbox labelName="Password" required="required" name="password" type="password" error='password'/>
                         </div>
                         <div class="col-sm-6">
-                            <x-front.inputbox labelName="Confirm Password" required="required" name="password_confirmation" type="password"/>
+                            <x-front.inputbox labelName="Confirm Password" name="password_confirmation" type="password"/>
                         </div>
                         <div class="button">
                             <button class="btn" type="submit">Register</button>

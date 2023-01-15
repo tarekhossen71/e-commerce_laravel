@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/') }}frontend/assets/images/favicon.svg" />
     <!-- ========================= CSS here ========================= -->
+    
     <link rel="stylesheet" href="{{ asset('/') }}frontend/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="{{ asset('/') }}frontend/assets/css/LineIcons.3.0.css" />
     <link rel="stylesheet" href="{{ asset('/') }}frontend/assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="{{ asset('/') }}frontend/assets/css/glightbox.min.css" />
@@ -63,6 +65,7 @@
     </a>
 
     <!-- ========================= JS here ========================= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{{ asset('/') }}frontend/assets/js/bootstrap.min.js"></script>
     <script src="{{ asset('/') }}frontend/assets/js/tiny-slider.js"></script>
     <script src="{{ asset('/') }}frontend/assets/js/glightbox.min.js"></script>
@@ -137,6 +140,54 @@
         }
         timer();
         setInterval(timer, 1000);
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        function flashMessage(status, message) {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            switch (status) {
+                case 'success':
+                    toastr.success(message);
+                    break;
+                case 'error':
+                    toastr.error(message);
+                    break;
+                case 'info':
+                    toastr.info(message);
+                    break;
+                case 'warning':
+                    toastr.warning(message);
+                    break;
+            }
+        }
+
+        @if (session()->get('success'))
+            flashMessage('success', "{{ session()->get('success') }}");
+        @elseif (session()->get('error'))
+            flashMessage('error', "{{ session()->get('error') }}");
+        @elseif (session()->get('info'))
+            flashMessage('info', "{{ session()->get('info') }}");
+        @elseif (session()->get('warning'))
+            flashMessage('warning', "{{ session()->get('warning') }}");
+        @endif
+ 
     </script>
     {{-- Internal Js --}}
     @stack('scripts')

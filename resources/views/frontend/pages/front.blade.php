@@ -1,4 +1,5 @@
 @extends('layouts.frontend.app')
+@section('title', 'ShopGrid')
 @push('styles')
     
 @endpush

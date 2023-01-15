@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Backend\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('frontend.pages.front');
 });
+Route::get('/app', function () {
+    return view('backend.pages.dashboard');
+});
 
 Auth::routes([
     'register'         => false, //404 Disabled
@@ -28,10 +32,14 @@ Auth::routes([
     'password.update'  => false, //404 Disabled
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // ------------------- Authinthication -------------------- //
 Route::get('signup', [AuthController::class, 'signupForm']);
 Route::post('signup', [AuthController::class, 'signupStore'])->name('signup.store');
 Route::get('signin', [AuthController::class, 'signin']);
 Route::get('forget-password', [AuthController::class, 'forgetPassword']);
+
+// --------------- Auth Dashboard ---------------//
+Route::prefix('app')->name('app.')->middleware('auth', 'is_verify')->group(function(){
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+});

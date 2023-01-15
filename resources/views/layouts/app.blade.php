@@ -1,80 +1,91 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title>@yield('title') | E-commerce</title>
+    <!-- GLOBAL MAINLY STYLES-->
+    <link href="{{ asset('backend') }}/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ asset('backend') }}/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="{{ asset('backend') }}/assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <!-- PLUGINS STYLES-->
+    <link href="{{ asset('backend') }}/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <!-- THEME STYLES-->
+    <link href="{{ asset('backend') }}/assets/css/main.min.css" rel="stylesheet" />
+    <!-- PAGE LEVEL STYLES-->
+    @method('style')
+    <style>
+        .breadcrumb-nav li{
+            display: inline-block;
+        }
+        .breadcrumb-nav li:first-child::before{
+            padding: 0;
+            content: '';
+        }
+        .breadcrumb-nav li::before{
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            color: #868e96;
+            content: '/';
+        }
+        .breadcrumb-nav li.active a{
+            color: #23b7e5;
+        }
+    </style>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+<body class="fixed-navbar">
+    <div class="page-wrapper">
+        <!-- START HEADER-->
+        @include('backend.pages.header')
+        <!-- END HEADER-->
+        <!-- START SIDEBAR-->
+        @include('backend.pages.sidebar')
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content fade-in-up">
+                {{-- Breadcrumb Start --}}
+                <div class="ibox">
+                    <div class="ibox-body px-3 d-flex align-items-center justify-content-between">
+                        <ul class="mb-0 pl-0 breadcrumb-nav">
+                            <li>Dashboard</li>
+                            <li class="active"><a href="#">Dashboard</a></li>
+                        </ul>
+                        <div class="action-btn">
+                            @yield('action')
+                        </div>
+                    </div>
                 </div>
+                {{-- Breadcrumb End --}}
+                @yield('content')
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+            <!-- END PAGE CONTENT-->
+            @include('backend.pages.footer')
+        </div>
     </div>
+    <!-- BEGIN PAGA BACKDROPS-->
+    {{-- <div class="sidenav-backdrop backdrop"></div>
+    <div class="preloader-backdrop">
+        <div class="page-preloader">Loading</div>
+    </div> --}}
+    <!-- END PAGA BACKDROPS-->
+    <!-- CORE PLUGINS-->
+    <script src="{{ asset('backend') }}/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="{{ asset('backend') }}/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="{{ asset('backend') }}/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="{{ asset('backend') }}/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+    <script src="{{ asset('backend') }}/assets/vendors/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- PAGE LEVEL PLUGINS-->
+    <script src="{{ asset('backend') }}/assets/vendors/chart.js/dist/Chart.min.js" type="text/javascript"></script>
+    <script src="{{ asset('backend') }}/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
+    <script src="{{ asset('backend') }}/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+    <script src="{{ asset('backend') }}/assets/vendors/jvectormap/jquery-jvectormap-us-aea-en.js" type="text/javascript"></script>
+    <!-- CORE SCRIPTS-->
+    <script src="{{ asset('backend') }}/assets/js/app.min.js" type="text/javascript"></script>
+    <!-- PAGE LEVEL SCRIPTS-->
+    <script src="{{ asset('backend') }}/assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>
+    @stack('script')
 </body>
 </html>
