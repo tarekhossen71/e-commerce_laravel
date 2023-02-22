@@ -1,11 +1,13 @@
 <nav class="page-sidebar" id="sidebar">
     <div id="sidebar-collapse">
         <ul class="side-menu metismenu mt-2">
-            <li>
-                <a class="active" href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
-                    <span class="nav-label">Dashboard</span>
-                </a>
-            </li>
+            @permission('app.dashbaoard')
+                <li>
+                    <a class="active" href="{{ route('app.dashboard') }}"><i class="sidebar-item-icon fa fa-th-large"></i>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+            @endpermission
             <li class="heading">FEATURES</li>
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>

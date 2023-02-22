@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'last_name'  => "Admin",
             'email'      => "super@gmail.com",
             'password'   => Hash::make(12345678),
+            'email_verified_at'=> now(),
         ]);
         $admin = Role::where('slug', 'admin')->first();
         User::insert([
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             'last_name'  => "Admin",
             'email'      => "admin@gmail.com",
             'password'   => Hash::make(12345678),
+            'email_verified_at'=> now(),
         ]);
         $client = Role::where('slug', 'client')->first();
         User::insert([

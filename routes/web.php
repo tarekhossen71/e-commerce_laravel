@@ -40,6 +40,6 @@ Route::get('signin', [AuthController::class, 'signin']);
 Route::get('forget-password', [AuthController::class, 'forgetPassword']);
 
 // --------------- Auth Dashboard ---------------//
-Route::prefix('app')->name('app.')->middleware('auth', 'is_verify')->group(function(){
+Route::prefix('app')->name('app.')->middleware('auth', 'is_verify','permission')->group(function(){
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 });
